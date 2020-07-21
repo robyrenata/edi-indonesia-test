@@ -1,0 +1,28 @@
+<ion-content class="ion-padding">
+  <ion-row>
+    <ion-col size="12" class="ion-padding-vertical">
+      <p>Welcome to Mini EDI Indonesia Employee Manager Apps!</p>
+    </ion-col>
+    <ion-col size="12">
+      <form [formGroup]="fg" *ngIf="fg">
+        <div class="fg">
+          <ion-item>
+            <ion-label position="floating">Please Insert Your Name</ion-label>
+            <ion-input type="text" formControlName="name" #focus></ion-input>
+          </ion-item>
+          <small *ngIf="fg.get('name').errors && submitted"
+            >{{fg.controls.name.errors?.required?.message}}</small
+          >
+        </div>
+      </form>
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-footer class="ion-padding">
+  <div class="fg">
+    <ion-button expand="block" type="submit" (click)="submitUser()"
+      >Submit</ion-button
+    >
+  </div>
+</ion-footer>

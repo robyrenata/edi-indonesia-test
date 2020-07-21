@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row>
+      <ion-col>EDI Indonesia</ion-col>
+      <ion-col class="ion-text-right ion-padding-end ion-align-items-center">
+        <ion-text>Select</ion-text><br /><ion-toggle
+          (ionChange)="onToggle($event.target.checked)"
+          [(ngModel)]="selectMode"
+        ></ion-toggle>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-row>
+    <ion-col size="12">
+      <div *ngIf="employeeList">
+        <ion-row *ngFor="let emp of employeeList; let i = index">
+          <ion-col>
+            <ion-card
+              (click)="action(i)"
+              [ngStyle]="{'border': emp.selected ? '1px solid red': 'none'}"
+            >
+              <ion-card-content>
+                <ion-row>
+                  <ion-col size="12">
+                    {{emp.name}}
+                  </ion-col>
+                  <ion-col>
+                    {{emp.nik}}
+                  </ion-col>
+                  <ion-col>
+                    <span *ngIf="emp.gender === 'm'">Male</span>
+                    <span *ngIf="emp.gender === 'f'">Female</span>
+                  </ion-col>
+                  <ion-col>
+                    {{emp.birthdate | date: 'd/MM/yyyy'}}
+                  </ion-col>
+                </ion-row>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </div>
+      <div class="ion-text-center">
+        <p *ngIf="!employeeList.length">
+          You don't have any record(s)
+        </p>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-fab vertical="bottom" horizontal="end" edge slot="fixed" class="fab">
+    <ion-fab-button (click)="openModal()" *ngIf="!selectMode">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button (click)="deleteEmployee()" *ngIf="selectMode">
+      <ion-icon name="trash-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
